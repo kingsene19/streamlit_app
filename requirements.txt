@@ -1,5 +1,5 @@
 numpy == 1.19.5
-cv2  == 4.5.3
+opencv-python  == 4.5.3
 caer == 1.9.8
 keras_tuner == 1.0.4
 sklearn ==  0.24.2
