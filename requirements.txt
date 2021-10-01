@@ -1,5 +1,6 @@
 numpy == 1.19.5
-opencv-contrib-python  == 4.5.3.56
+cmake == 3.21.1.post1
+opencv-contrib-pythocmake == 3.21.1.post1n  == 4.5.3.56
 caer == 1.9.8
 keras_tuner == 1.0.3
 scikit-learn == 0.24.2
