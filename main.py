@@ -6,16 +6,29 @@ import streamlit as st
 from PIL import Image
 
 def main():
+    
     @st.cache(allow_output_mutation=True)
     def load_model():
-        model = tf.keras.models.load_model(r"C:/Users/Massamba Sene/Deep_learning/model.h5")
+        model = tf.keras.models.load_model("model.h5")
         return model
     model = load_model()
     class_names = ['bart_simpson', 'charles_montgomery_burns', 'homer_simpson', 'krusty_the_clown',
                  'lisa_simpson', 'marge_simpson', 'milhouse_van_houten', 'moe_szyslak', 'ned_flanders',
                  'principal_skinner']
-    haar_cascade = cv2.CascadeClassifier("C:/Users/Massamba Sene/Deep_learning/haar_faces.xml")
+    haar_cascade = cv2.CascadeClassifier("haar_faces.xml")
     
+    selected_box = st.sidebar.selectbox(
+    'Choisissez une des options suivantes',
+    ('Bienvenue','Detection en direct', 'Detection sur une image uploadée', 'Reconnaissance des personnages de Simpsons')
+    if selected_box == 'Bienvenue':
+        welcome() 
+    if selected_box == 'Detection en direct':
+        live_detection()
+    if selected_box == 'Detection sur une image uploadée':
+        image_detection()
+    if selected_box == 'Reconnaissance des personnages de Simpsons':
+         simspons_recognition()
+
     def pil_to_cv2_image(image):
         opencv_array = np.array(image)
         cv2.imwrite('out.jpg', cv2.cvtColor(opencv_array, cv2.COLOR_RGB2BGR))
@@ -45,26 +58,20 @@ def main():
             if cv2.waitKey(20) & 0xFF == ord('q'):
                 break
         image.release()
-        cv2.destroyAllWindows()
-
-
-    with face_detector:
-        st.title("Face Detection And Recognition WebApp")
-        st.text("This face detector was built using the dlib library")
+        cv2.destroyAllWindows() 
+         
+     def welcome():
+        st.title('Detection et classifiction des images en utilisant streamlit')
+        st.subheader('Une appication simple qui vout permet de choisir entre trois options dispobible au niveau du sidebar")
+      
+     def image_detection():
+        st.header("Face Detection using haarcascade")
         html_body = """<body style="background-color:red;"></body>"""
         st.markdown(html_body, unsafe_allow_html=True)
         html_temp = """
             <body style="background-color:red;">
             <div style="background-color:red;padding:10px;">
             <h2 style="color:white;text-align:center;">Face Detection</h2>
-            </div>
-            </body>
-            """
-        st.markdown(html_temp, unsafe_allow_html=True)
-        html_temp = """
-            <body>
-            <div style="padding:15px;text-align:center;margin: 25px;">
-            <h4 style = "color:black;text-align:center;">Detect Using uploaded Image</h4>
             </div>
             </body>
             """
@@ -78,6 +85,9 @@ def main():
             result_image = detect_image(our_image)
             st.text("Results")
             st.image(result_image)
+           
+     def live_detection():
+        st.header("Live face detection usibg haar cascacde")
         html_temp = """
             <body>
             <div style="padding:15px;text-align:center;margin:25px;">
@@ -88,10 +98,9 @@ def main():
         st.markdown(html_temp, unsafe_allow_html=True)
         if st.button("Detect", key=10):
             detect_live()
-
-    with face_recognizer:
-        st.title("Face Recognition")
-        st.text("This face recognizer is used to distinguish between simpsons characters")
+                 
+     def simpsons_recognition():
+        st.header("Face Recognition using a built deep learning model")
         html_body = """<body style="background-color:red;"></body>"""
         st.markdown(html_body, unsafe_allow_html=True)
         html_temp = """
@@ -118,5 +127,6 @@ def main():
                 result = class_names[np.argmax(model.predict(opencv_image))]
                 st.text("Results")
                 st.text("Ce personnage est " + result)
-    if __name__ == 'main':
-        main()
+                     
+if __name__ == 'main':
+    main()
