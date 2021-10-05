@@ -3,12 +3,12 @@ import cv2
 import tensorflow as tf
 import streamlit as st
 from PIL import Image
-from streamlit_webrtc import VideoTransformerBase, webrtc_streamer
+from streamlit_webrtc import VideProcessorBase, webrtc_streamer
 
 
 haar_cascade = cv2.CascadeClassifier("haar_faces.xml")
 
-class VideoTransformer(VideoTransfomerBase):
+class VideoTransformer(VideoProcessorBase):
     def __init__(self):
         self.i = 0
     def transform(self,frame):
