@@ -14,7 +14,7 @@ def main():
     class_names = ['bart_simpson', 'charles_montgomery_burns', 'homer_simpson', 'krusty_the_clown',
                  'lisa_simpson', 'marge_simpson', 'milhouse_van_houten', 'moe_szyslak', 'ned_flanders',
                  'principal_skinner']
-    haar_cascade = cv2.CascadeClassifier("haar_faces.xml")
+    haar_cascade = cv2.CascadeClassifier("C:/Users/Massamba Sene/Deep_learning/haar_faces.xml")
     
     def pil_to_cv2_image(image):
         opencv_array = np.array(image)
