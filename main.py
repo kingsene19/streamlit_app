@@ -9,7 +9,8 @@ def main():
     selected_box = st.sidebar.selectbox(
         'Choisissez une des options suivantes',
         ('Bienvenue', 'Detection en direct', 'Detection sur une image uploadée',
-         'Reconnaissance des personnages de Simpsons')
+         'Reconnaissance des personnages de Simpsons'))
+        
     if selected_box == 'Bienvenue':
         welcome()
     if selected_box == 'Detection en direct':
