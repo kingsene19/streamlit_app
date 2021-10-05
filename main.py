@@ -35,7 +35,6 @@ def main():
 
     def detect_live():
         image = cv2.VideoCapture(0)
-        haar_cascade = cv2.CascadeClassifier("haar_face.xml")
         while True:
             isTrue, frame = image.read()
             gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
