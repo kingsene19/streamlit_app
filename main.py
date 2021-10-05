@@ -1,14 +1,7 @@
 import numpy as np
-import os
 import cv2
-import caer
-import keras_tuner
-from keras_tuner import *
-from sklearn.utils import shuffle
 import tensorflow as tf
 from tensorflow import keras
-from tensorflow.keras import layers,models
-from tensorflow.keras.preprocessing.image import ImageDataGenerator
 import streamlit as st
 from PIL import Image
 
@@ -21,6 +14,8 @@ def main():
     class_names = ['bart_simpson', 'charles_montgomery_burns', 'homer_simpson', 'krusty_the_clown',
                  'lisa_simpson', 'marge_simpson', 'milhouse_van_houten', 'moe_szyslak', 'ned_flanders',
                  'principal_skinner']
+    haar_cascade = cv2.CascadeClassifier("haar_faces.xml")
+    
     def pil_to_cv2_image(image):
         opencv_array = np.array(image)
         cv2.imwrite('out.jpg', cv2.cvtColor(opencv_array, cv2.COLOR_RGB2BGR))
@@ -70,7 +65,7 @@ def main():
         html_temp = """
             <body>
             <div style="padding:15px;text-align:center;margin: 25px;">
-            <h4 style = "color:black;text-align:cznter;">Detect Using uploaded Image</h4>
+            <h4 style = "color:black;text-align:center;">Detect Using uploaded Image</h4>
             </div>
             </body>
             """
