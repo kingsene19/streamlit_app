@@ -125,13 +125,13 @@ y_test = np.array(list(map(int,target_val)),np.float32)
 test_loss, test_acc = model.evaluate(x_test, y_test, verbose=2)
 print(test_acc)
 
-model.save("C:\Users\Massamba Sene\Deep_learning\model.h5")
+model.save(r"C:\Users\Massamba Sene\Deep_learning\model.h5")
 
 
 def main():
     @st.cache(allow_output_mutation=True)
     def load_model():
-        model = tf.keras.models.load_model("C:\Users\Massamba Sene\Deep_learning\model.h5")
+        model = tf.keras.models.load_model(r"C:\Users\Massamba Sene\Deep_learning\model.h5")
         return model
     model = load_model()
     class_names = ['bart_simpson', 'charles_montgomery_burns', 'homer_simpson', 'krusty_the_clown',
