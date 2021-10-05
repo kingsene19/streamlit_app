@@ -11,4 +11,4 @@ Pillow == 8.0.0
 tensorboard == 2.6.0
 aiortc==1.2.1
 av==8.0.3
-typing_extensions==3.10.0.2
+
