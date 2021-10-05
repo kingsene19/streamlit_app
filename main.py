@@ -53,7 +53,7 @@ def detect_live():
 
 def welcome():
     st.title('Detection et classifiction des images en utilisant streamlit')
-    st.subheader('Une appication simple qui vout permet de choisir entre trois options dispobible au niveau du sidebar")
+    st.subheader('Une appication simple qui vout permet de choisir entre trois options dispobible au niveau du sidebar')
 
 def image_detection():
     st.header("Face Detection using haarcascade")
