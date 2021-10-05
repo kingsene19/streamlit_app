@@ -13,7 +13,7 @@ import streamlit as st
 from PIL import Image
 
 IMG_SIZE = (80,80)
-char_path = r"C:/Users/Massamba Sene/PycharmProjects/Arendre/simpsons_characters_dataset/simpsons_dataset"
+char_path = r"C:\Users\Massamba Sene\PycharmProjects\Arendre\simpsons_characters_dataset\simpsons_dataset"
 char_dict = {}
 for char in os.listdir(char_path):
   char_dict[char] = len(os.listdir(os.path.join(char_path,char)))
@@ -40,7 +40,7 @@ def create_dataset(img_folder,characters):
         img_data_array.append(image)
         class_name.append(person)
   return img_data_array, class_name
-img_data,class_name = create_dataset(r"C:/Users/Massamba Sene/PycharmProjects/Arendre/simpsons_characters_dataset/simpsons_dataset"
+img_data,class_name = create_dataset(r"C:\Users\Massamba Sene\PycharmProjects\Arendre\simpsons_characters_dataset\simpsons_dataset"
                                      ,characters=characters)
 target_dict = {k: v for v, k in enumerate(np.unique(class_name))}
 target_val=  [target_dict[class_name[i]] for i in range(len(class_name))]
@@ -115,7 +115,7 @@ history = model.fit_generator(train_set,
                               verbose=2,
                               epochs=5)
 
-x_test,y_test = create_dataset(r"C:/Users/Massamba Sene/PycharmProjects/Arendre/simpsons_characters_dataset/kaggle_simpson_testset/kaggle_simpson_testset",
+x_test,y_test = create_dataset(r"C:\Users\Massamba Sene\PycharmProjects\Arendre\simpsons_characters_dataset\kaggle_simpson_testset\kaggle_simpson_testset",
                                characters=characters)
 target_dict = {k: v for v, k in enumerate(np.unique(y_test))}
 target_val = [target_dict[y_test[i]] for i in range(len(y_test))]
@@ -125,13 +125,13 @@ y_test = np.array(list(map(int,target_val)),np.float32)
 test_loss, test_acc = model.evaluate(x_test, y_test, verbose=2)
 print(test_acc)
 
-model.save("C:/Users/Massamba Sene/Deep_learning/model.hdf5")
+model.save("C:\Users\Massamba Sene\Deep_learning\model.h5")
 
 
 def main():
     @st.cache(allow_output_mutation=True)
     def load_model():
-        model = tf.keras.models.load_model('/content/model.hdf5')
+        model = tf.keras.models.load_model("C:\Users\Massamba Sene\Deep_learning\model.h5")
         return model
     model = load_model()
     class_names = ['bart_simpson', 'charles_montgomery_burns', 'homer_simpson', 'krusty_the_clown',
