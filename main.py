@@ -3,7 +3,21 @@ import cv2
 import tensorflow as tf
 import streamlit as st
 from PIL import Image
+from streamlit_webrtc import VideoTransformerBase, webrtc_streamer
 
+
+haar_cascade = cv2.CascadeClassifier("haar_faces.xml")
+
+class VideoTransformer(VideoTransfomerBase):
+    def __init__(self):
+        self.i = 0
+    def transform(self,frame):
+        img = frame.to_ndarray(format='bgr24')
+        gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+        faces_roi = haar_cascade.detectMutiScale(gray,1.3,5)
+        for (x,y,w,h) in faces_roi:
+            cv2.rectangle(img,(x,y),(x+w,y+h),(255,0,0),3)
+        return img
 
 def main():
     selected_box = st.sidebar.selectbox(
@@ -27,7 +41,6 @@ def pil_to_cv2_image(image):
     return opencv_image
 
 def detect_image(image):
-    haar_cascade = cv2.CascadeClassifier("haar_faces.xml")
     img = pil_to_cv2_image(image)
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     faces_roi = haar_cascade.detectMultiScale(gray, scaleFactor=1.5, minNeighbors=3)
@@ -35,21 +48,6 @@ def detect_image(image):
         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
         cv2.rectangle(img, (x, y), (x + w, y + h), (0, 0, 255), 2)
     return img
-
-def detect_live():
-    haar_cascade = cv2.CascadeClassifier("haar_faces.xml")
-    image = cv2.VideoCapture(0)
-    while True:
-        isTrue, frame = image.read()
-        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-        faces_roi = haar_cascade.detectMultiScale(gray, scaleFactor=1.5, minNeighbors=3)
-        for (x, y, w, h) in faces_roi:
-            cv2.rectangle(frame, (x, y), (x + w, y + h), (255, 0, 0), thickness=2)
-            cv2.imshow("Frames", frame)
-        if cv2.waitKey(20) & 0xFF == ord('q'):
-            break
-    image.release()
-    cv2.destroyAllWindows()
 
 def welcome():
     st.title('Detection et classifiction des images en utilisant streamlit')
@@ -88,8 +86,8 @@ def live_detection():
             """
     st.markdown(html_temp, unsafe_allow_html=True)
     if st.button("Detect", key=10):
-            detect_live()
-
+        webrtc_streamer(key="example",video_processor_factory=VideoTransformer)
+        
 def simpsons_recognition():
     @st.cache(allow_output_mutation=True)
     def load_model():
