@@ -85,8 +85,7 @@ def live_detection():
             </body>
             """
     st.markdown(html_temp, unsafe_allow_html=True)
-    if st.button("Detect", key=10):
-        webrtc_streamer(key="example",video_processor_factory=VideoTransformer)
+    webrtc_streamer(key="example",video_processor_factory=VideoTransformer)
         
 def simpsons_recognition():
     @st.cache(allow_output_mutation=True)
