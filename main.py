@@ -3,8 +3,20 @@ import cv2
 import tensorflow as tf
 import streamlit as st
 from PIL import Image
+from streamlit_webrtc import VideoProcessorBase,RTCConfiguration,WebRtcMode,webrtc_streamer
 
 haar_cascade = cv2.CascadeClassifier("haar_faces.xml")
+
+class VideoProcessor(VideoProcessorBase):
+    def __init__(self):
+        self.i = 0
+    def transform(self,frame):
+        image = frame.to_ndarray(format="bgr24")
+        gray = cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)
+        faces = haar_cascade.detectMultiScale(gray,1.3,5)
+        for (x,y,w,h) in faces:
+            cv2.rectangle(image,(x,y),(x+w,y+h),(255,0,0),thickness=2)
+        return image 
 
 def main():
     selected_box = st.sidebar.selectbox(
@@ -31,6 +43,7 @@ def detect_image(image):
     img = pil_to_cv2_image(image)
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     faces_roi = haar_cascade.detectMultiScale(gray, scaleFactor=1.5, minNeighbors=3)
+    i += self.i + 1
     for (x, y, w, h) in faces_roi:
         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
         cv2.rectangle(img, (x, y), (x + w, y + h), (0, 0, 255), 2)
@@ -63,7 +76,17 @@ def image_detection():
         st.image(result_image)
 
 def live_detection():
-    return 0
+    st.header("Détection De Visage En Direct")
+    html_temp = """
+            <body>
+            <div style="padding:15px;text-align:center;margin:25px;">
+            <h4 style = "color:black;text-align:center;">Utilisation De La Webcam</h4>
+            </div>
+            </body>
+            """
+    st.markdown(html_temp, unsafe_allow_html=True)
+    RTC_CONFIGURATION = RTCConfiguration({"iceServers":[{"urls": ["stun:stun.l.google.com:19302"]}]})
+    webrtc_streamer(key="face_detection",video_processor_factory=VideoProcessor,mode=WebRtcMode.SENDRECV,rtc_configuration=RTC_CONFIGURATION)
         
 def simpsons_recognition():
     @st.cache(allow_output_mutation=True)
