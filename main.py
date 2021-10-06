@@ -112,18 +112,18 @@ def main():
                 st.text("Results")
                 st.text("Ce personnage est " + result)
             
-        selected_box = st.sidebar.selectbox(
+    selected_box = st.sidebar.selectbox(
             'Choisissez une des options suivantes',
             ('Bienvenue', 'Detection en direct', 'Detection sur une image uploadée',
          'Reconnaissance des personnages de Simpsons'))     
-        if selected_box == 'Bienvenue':
-            welcome()
-        if selected_box == 'Detection en direct':
-            live_detection()
-        if selected_box == 'Detection sur une image uploadée':
-            image_detection()
-        if selected_box == 'Reconnaissance des personnages de Simpsons':
-            simspons_recognition()
+    if selected_box == 'Bienvenue':
+        welcome()
+    if selected_box == 'Detection en direct':
+        live_detection()
+    if selected_box == 'Detection sur une image uploadée':
+        image_detection()
+    if selected_box == 'Reconnaissance des personnages de Simpsons':
+        simspons_recognition()
 
-if __name__ == 'main':
+if __name__ == "main":
     main()
