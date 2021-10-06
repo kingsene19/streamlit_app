@@ -18,7 +18,7 @@ def main():
             faces = haar_cascade.detectMultiScale(gray,1.3,5)
             for (x,y,w,h) in faces:
                 cv2.rectangle(image,(x,y),(x+w,y+h),(255,0,0),thickness=2)
-        return image 
+            return image 
     
     def pil_to_cv2_image(image):
         opencv_array = np.array(image)
