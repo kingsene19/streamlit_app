@@ -8,10 +8,10 @@ from streamlit_webrtc import VideoProcessorBase, webrtc_streamer
 
 haar_cascade = cv2.CascadeClassifier("haar_faces.xml")
 
-class VideoTransformer(VideoProcessorBase):
+class VideoProcessor(VideoProcessorBase):
     def __init__(self):
         self.i = 0
-    def transform(self,frame):
+    def on_recv(self,frame):
         img = frame.to_ndarray(format='bgr24')
         gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
         faces_roi = haar_cascade.detectMutiScale(gray,1.3,5)
@@ -85,7 +85,7 @@ def live_detection():
             </body>
             """
     st.markdown(html_temp, unsafe_allow_html=True)
-    webrtc_streamer(key="example",video_processor_factory=VideoTransformer)
+    webrtc_streamer(key="example",video_processor_factory=VideProcessor)
         
 def simpsons_recognition():
     @st.cache(allow_output_mutation=True)
