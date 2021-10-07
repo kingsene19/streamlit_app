@@ -9,10 +9,13 @@ from streamlit_webrtc import VideoProcessorBase,RTCConfiguration,WebRtcMode,webr
 haar_cascade = cv2.CascadeClassifier("haar_faces.xml")
     
 class VideoProcessor(VideoProcessorBase):
+    def __init__(self):
+        self.i = 0
     def transform(self,frame):
         image = frame.to_ndarray(format="bgr24")
         gray = cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)
         faces = haar_cascade.detectMultiScale(gray,1.3,5)
+        i = self.i + 1
         for (x,y,w,h) in faces:
             cv2.rectangle(image,(x,y),(x+w,y+h),(255,0,0),thickness=2)
         return image 
