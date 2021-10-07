@@ -122,4 +122,4 @@ if selected_box == 'Detection en direct':
 if selected_box == 'Detection sur une image uploadée':
     image_detection()
 if selected_box == 'Reconnaissance des personnages de Simpsons':
-    simspons_recognition()
+    simpsons_recognition()
