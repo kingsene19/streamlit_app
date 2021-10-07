@@ -1,15 +1,8 @@
-numpy == 1.19.5
-opencv-contrib-python  == 4.5.3.56
-caer == 1.9.8
-keras_tuner == 1.0.3
-scikit-learn == 0.24.2
-sklearn ==  0.0
-tensorflow == 2.6.0
-streamlit == 0.89.0
-streamlit-webrtc == 0.29.1
-Pillow == 8.0.0
-tensorboard == 2.6.0
-aiortc==1.2.1
-av==8.0.3
+numpy
+opencv-contrib-python
+tensorflow 
+streamlit 
+streamlit-webrtc 
+Pillow 
 
 
