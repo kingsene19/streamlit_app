@@ -5,8 +5,8 @@ import streamlit as st
 from PIL import Image
 from streamlit_webrtc import VideoProcessorBase,RTCConfiguration,WebRtcMode,webrtc_streamer
 
-def main():  
 
+with st.echo(code_location="below"):
     haar_cascade = cv2.CascadeClassifier("haar_faces.xml")
     
     class VideoProcessor(VideoProcessorBase):
@@ -124,6 +124,3 @@ def main():
         image_detection()
     if selected_box == 'Reconnaissance des personnages de Simpsons':
         simspons_recognition()
-
-if __name__ == "main":
-    main()
