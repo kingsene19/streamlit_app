@@ -39,9 +39,6 @@ def welcome():
     st.title('Detection et classifiction des images en utilisant streamlit')
     st.subheader('Une appication simple qui vout permet de choisir entre trois options disponible au niveau du sidebar')
 
-def about():
-    st.header('Cette application est un projet développé par Mohamed Massamba Sene élève de deuxième année, dans le cadre de son stage à l\'entreprise Baamtu')
-
 def image_detection():
     st.header("Face Detection using haarcascade")
     html_body = """<body style="background-color:red;"></body>"""
@@ -117,7 +114,7 @@ def simpsons_recognition():
 selected_box = st.sidebar.selectbox(
             'Choisissez une des options suivantes',
             ('Bienvenue', 'Detection en direct', 'Detection sur une image uploadée',
-         'Reconnaissance des personnages de Simpsons','A Propos'))     
+         'Reconnaissance des personnages de Simpsons'))     
 if selected_box == 'Bienvenue':
     welcome()
 if selected_box == 'Detection en direct':
@@ -126,5 +123,3 @@ if selected_box == 'Detection sur une image uploadée':
     image_detection()
 if selected_box == 'Reconnaissance des personnages de Simpsons':
     simpsons_recognition()
-if selected_box == 'A Propos':
-    about()
