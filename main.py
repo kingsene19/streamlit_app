@@ -126,5 +126,5 @@ if selected_box == 'Detection sur une image uploadée':
     image_detection()
 if selected_box == 'Reconnaissance des personnages de Simpsons':
     simpsons_recognition()
-if selected_box == 'A propos'
+if selected_box == 'A Propos'
     about()
